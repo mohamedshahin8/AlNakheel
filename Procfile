@@ -1,0 +1,2 @@
+web: gunicorn ALNakheel.wsgi --log-file -
+ 
