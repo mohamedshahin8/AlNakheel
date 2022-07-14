@@ -11,5 +11,8 @@ urlpatterns = [
     path("bookings", views.bookings, name="bookings"),
     path("daily_bookings", views.all_booking, name="all_booking"),
     path("bookings/<int:id>/update/", views.update_booking, name="update_booking"),
+    path("expenses", views.expenses, name="expenses"),
+    path("expenses/create", views.new_expense, name="new_expense"),
+
     path("", views.home, name="home")
 ]

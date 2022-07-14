@@ -3,10 +3,6 @@ from datetime import datetime, timedelta, time, date
 
 # Create your models here.
 
-class MyModel(models.Model):
-    fullname = models.CharField(max_length=200)
-    mobile_number = models.IntegerField()
-
 class Customer(models.Model):
     customer_id = models.CharField(max_length=20, primary_key=True)
     social_id = models.CharField(max_length = 10)
@@ -58,13 +54,27 @@ class Floor(models.Model):
     def __str__(self):
         return f"{self.floor_name}"
 
+
+COLOR_CHOICES = (
+    ('احتياحات','احتياجات'),
+    ('خدمات', 'خدمات'),
+    ('تجديجات','تجديدات'),
+    ('راتب','راتب'),
+    ('صيانه','صيانه'),
+    ('عموله','عموله'),
+    ('مصاريف مكتبيه','مصاريف مكتبيه'),
+    ('معدات تنظيف','معدات تنظيف'),
+    ('نفقات تشغيل','نفقات تشغيل'),
+)
+
 class Expense(models.Model):
     """docstring for Expense."""
     expense_id = models.CharField(max_length=20, primary_key=True)
-    expense_category = models.CharField(max_length= 20)
+    expense_category = models.CharField(max_length= 20, choices=COLOR_CHOICES,)
     expense_item = models.CharField(max_length= 25)
     floor = models.ForeignKey(Floor, on_delete=models.CASCADE)
     expense_price = models.IntegerField()
+    created_at = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return f"{self.expense_id}"

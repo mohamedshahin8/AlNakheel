@@ -65,28 +65,49 @@ def all_booking(request):
 
 def new_booking(request):
 	if request.method == "POST":
-		movie_form = MovieForm(request.POST, request.FILES)
-		if movie_form.is_valid():
-			movie_form.save()
+		booking_form = BookingForm(request.POST, request.FILES)
+		if booking_form.is_valid():
+			booking_form.save()
 			messages.success(request, ('Your Booking was successfully added!'))
 		else:
 			messages.error(request, 'Error saving form')
 
 
 		return redirect("new_booking")
-	movie_form = MovieForm()
-	return render(request=request, template_name="new_booking.html", context={'movie_form':movie_form})
+	booking_form = BookingForm()
+	return render(request=request, template_name="new_booking.html", context={'booking_form':booking_form})
 
 def update_booking(request, id):
     booking = Booking.objects.get(booking_id=id)
     if request.method == 'POST':
-        movie_form = MovieForm(request.POST,instance=booking)
-        if movie_form.is_valid():
+        booking_form = BookingForm(request.POST,instance=booking)
+        if booking_form.is_valid():
             # update the existing `Band` in the database
-            movie_form.save()
+            booking_form.save()
             # redirect to the detail page of the `Band` we just updated
             return redirect('all_booking')
     else:
-        movie_form = MovieForm(instance=booking)
+        booking_form = BookingForm(instance=booking)
 
-    return render(request,'update_booking.html',{'movie_form': movie_form})
+    return render(request,'update_booking.html',{'booking_form': booking_form})
+
+
+
+def expenses(request):
+    expenses = Expense.objects.all()
+    return render(request, 'expenses.html', context={'expenses': expenses})
+
+
+def new_expense(request):
+	if request.method == "POST":
+		expense_form = ExpenseForm(request.POST, request.FILES)
+		if expense_form.is_valid():
+			expense_form.save()
+			messages.success(request, ('Expense was successfully added!'))
+		else:
+			messages.error(request, 'Error saving form')
+
+
+		return redirect("customers")
+	expense_form = ExpenseForm()
+	return render(request=request, template_name="new_expense.html", context={'expense_form':expense_form})
