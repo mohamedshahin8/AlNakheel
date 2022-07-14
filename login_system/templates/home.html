@@ -5,16 +5,17 @@
 
     <div class="container">
 
-      <h1 style="text-align:center;">Welcome To Al-Nakheel Residence</h1>
+      <h1 style="text-align:center;">Welcome To Al-Nakhil Residence</h1>
 
       {% if user.is_authenticated %}
       {% if user.is_superuser %}
           <div class="tile_div">
             <a class="nav-link" href="" target="_blank"> <button type="button" class="ui button primary">Dashboard</button> </a>
-            <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfRQH_nCeRh74V5Vyej7WqskT81vyliIIZOKUA5uKlIpWNY5A/viewform" target="_blank"> <button type="button" class="ui button primary">Payment</button> </a>
-            <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLScvHtiUmnidQ42ExPsRA-m2wBRxU4XtErkxgd9YKxmsc5VWMQ/viewform" target="_blank"> <button type="button" class="ui button primary">Check In</button> </a>
+            <a class="nav-link" href="" target="_blank"> <button type="button" class="ui button primary">Payment</button> </a>
+            <a class="nav-link" href="bookings" target="_blank"> <button type="button" class="ui button primary">Bookings</button> </a>
+            <a class="nav-link" href="customers" target="_blank"> <button type="button" class="ui button primary">Customers</button> </a>
             <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSc-H7znh92PIVWHVjjyZjh4ZApX6vpy5UEBiv1oH3-uAmR80w/viewform" target="_blank"> <button type="button" class="ui button primary">Expenses</button> </a>
-            <a class="nav-link" href="" target="_blank"> <button type="button" class="ui button primary">Pending</button> </a>
+            <!-- <a class="nav-link" href="" target="_blank"> <button type="button" class="ui button primary">Pending</button> </a> -->
             {% else %}
             <a class="nav-link" href="" target="_blank"> <button type="button" class="ui button primary">Dashboard</button> </a>
             <a class="nav-link" href="" target="_blank"> <button type="button" class="ui button primary">Pending</button> </a>

@@ -38,12 +38,30 @@ def logout_user(request):
     auth.logout(request)
     return redirect('home')
 
+def customers(request):
+    customers = Customer.objects.all()
+    return render(request, 'all_customers.html', context={'customers': customers})
 
+def new_customer(request):
+	if request.method == "POST":
+		customer_form = CustomerForm(request.POST, request.FILES)
+		if customer_form.is_valid():
+			customer_form.save()
+			messages.success(request, ('Customer was successfully added!'))
+		else:
+			messages.error(request, 'Error saving form')
+
+
+		return redirect("customers")
+	customer_form = CustomerForm()
+	return render(request=request, template_name="new_customer.html", context={'customer_form':customer_form})
+
+def bookings(request):
+    return render(request, 'bookings.html')
 
 def all_booking(request):
-
     bookings = Booking.objects.filter(from_date__gte = date.today())
-    return render(request, 'all_booking.html', context={'bookings': bookings})
+    return render(request, 'all_bookings.html', context={'bookings': bookings})
 
 def new_booking(request):
 	if request.method == "POST":

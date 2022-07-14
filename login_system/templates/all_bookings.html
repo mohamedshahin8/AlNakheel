@@ -8,7 +8,7 @@
         <div class="container">
           <!--Django Model Form-->
           <h2 class="my-4">Bookings</h2>
-          <div class="row">
+          <!-- <div class="row"> -->
 
             <table>
               <tr>
@@ -36,12 +36,14 @@
                   <td>{{b.paid_amount}} </td>
                   <td>{{b.pending_amount}} </td>
               </tr>
+
               {% empty %}
-              <p> No Bookings </p>
+              <div class="row">
+                <h2> No Bookings </h2>
+              </div>
               {% endfor %}
             </table>
 
-          </div>
         </div>
 
 

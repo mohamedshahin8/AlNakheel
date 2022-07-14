@@ -19,7 +19,7 @@ class Customer(models.Model):
     country_name = models.CharField(max_length = 15)
     # city name for egypt only
     city_name = models.CharField(max_length = 10)
-    member_creation_date = models.DateTimeField()
+    member_creation_date = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return f"{self.customer_id}"
@@ -39,7 +39,7 @@ class Booking(models.Model):
     booking_id = models.CharField(max_length=20, primary_key=True)
     booking_source = models.CharField(max_length= 15)
     booking_reason = models.CharField(max_length= 15)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.CharField(max_length = 30)
     payment_type = models.CharField(max_length= 15)
     from_date = models.DateTimeField(auto_now_add=True)
     to_date = models.DateTimeField(default=datetime.now)
