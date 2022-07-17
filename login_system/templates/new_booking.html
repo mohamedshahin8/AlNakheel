@@ -20,7 +20,7 @@
           <h2 class="my-4">Create New Booking</h2>
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-                {{movie_form|crispy}}
+                {{booking_form|crispy}}
                 <button class="btn btn-primary my-4" type="submit">Submit</button>
           </form>
           <!--Django Model-->
