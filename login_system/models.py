@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, time, date
 # Create your models here.
 
 class Customer(models.Model):
-    customer_id = models.CharField(max_length=20, primary_key=True)
+    customer_id = models.AutoField(primary_key=True)
     social_id = models.CharField(max_length = 10)
     first_name = models.CharField(max_length = 10)
     last_name = models.CharField(max_length = 10)
@@ -20,16 +20,6 @@ class Customer(models.Model):
     def __str__(self):
         return f"{self.customer_id}"
 
-class Movie(models.Model):
-	movie_title = models.CharField(max_length=150)
-	release_year = models.IntegerField()
-	director = models.CharField(max_length=100)
-	# movie_poster = models.ImageField(upload_to='images/', None=True)
-	movie_plot = models.TextField()
-
-
-	def __str__(self):
-		return self.movie_title
 
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
@@ -55,7 +45,7 @@ class Booking(models.Model):
     # def Collected_amount()
 
 class Floor(models.Model):
-    floor_id = models.CharField(max_length=20, primary_key=True)
+    floor_id = models.AutoField(primary_key=True)
     floor_name = models.CharField(max_length=20)
     floor_rooms = models.CharField(max_length= 20)
 
@@ -77,7 +67,7 @@ COLOR_CHOICES = (
 
 class Expense(models.Model):
     """docstring for Expense."""
-    expense_id = models.CharField(max_length=20, primary_key=True)
+    expense_id = models.AutoField(primary_key=True)
     expense_category = models.CharField(max_length= 20, choices=COLOR_CHOICES,)
     expense_item = models.CharField(max_length= 25)
     floor = models.ForeignKey(Floor, on_delete=models.CASCADE)
@@ -89,7 +79,7 @@ class Expense(models.Model):
 
 
 class Room(models.Model):
-    room_id = models.CharField(max_length=20, primary_key=True)
+    room_id = models.AutoField(primary_key=True)
     room_name = models.CharField(max_length=20)
     floor_name = models.ForeignKey( Floor , on_delete=models.CASCADE)
 
