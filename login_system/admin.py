@@ -3,5 +3,7 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Customer)
-admin.site.register(Movie)
 admin.site.register(Booking)
+admin.site.register(Expense)
+admin.site.register(Room)
+admin.site.register(Floor)
