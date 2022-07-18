@@ -17,11 +17,12 @@
                   <th>Booking Reason | </th>
                   <th>Customer | </th>
                   <th>Payment Type | </th>
-                  <th>Started At | </th>
-                  <th>Ended At | </th>
+                  <th>Start Date | </th>
+                  <th>End Date | </th>
                   <th>Total Amount | </th>
                   <th>Paid Amount | </th>
                   <th>Pending Amount | </th>
+                  <th>Updated At | </th>
               </tr>
                 {% for b in bookings %}
               <tr>
@@ -34,7 +35,8 @@
                   <td>{{b.to_date}} </td>
                   <td>{{b.total_amount}} </td>
                   <td>{{b.paid_amount}} </td>
-                  <td>{{b.pending_amount}} </td>
+                  <td>{{b.Pending_amount}} </td>
+                  <td>{{b.updated_at}} </td>
               </tr>
 
               {% empty %}
@@ -42,6 +44,7 @@
                 <h2> No Bookings </h2>
               </div>
               {% endfor %}
+
             </table>
 
         </div>

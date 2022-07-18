@@ -61,7 +61,9 @@ def bookings(request):
 
 def all_booking(request):
     bookings = Booking.objects.filter(from_date__gte = date.today())
-    return render(request, 'all_bookings.html', context={'bookings': bookings})
+    # bookings = Booking.objects.filter(from_date__gte = date.today())
+    updated_bookings = Booking.objects.filter(updated_at__gte = date.today())
+    return render(request, 'all_bookings.html', context={'bookings': bookings , 'updated_bookings' : updated_bookings})
 
 def new_booking(request):
 	if request.method == "POST":

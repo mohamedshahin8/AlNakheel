@@ -32,19 +32,27 @@ class Movie(models.Model):
 		return self.movie_title
 
 class Booking(models.Model):
-    booking_id = models.CharField(max_length=20, primary_key=True)
+    booking_id = models.AutoField(primary_key=True)
     booking_source = models.CharField(max_length= 15)
     booking_reason = models.CharField(max_length= 15)
     customer = models.CharField(max_length = 30)
     payment_type = models.CharField(max_length= 15)
-    from_date = models.DateTimeField(auto_now_add=True)
+    from_date = models.DateTimeField(default=datetime.now)
     to_date = models.DateTimeField(default=datetime.now)
     total_amount = models.IntegerField()
     paid_amount = models.IntegerField()
-    pending_amount = models.IntegerField()
+    updated_at = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return f"{self.booking_id}"
+
+    @property
+    def Pending_amount(self):
+        pending_amount = self.total_amount - self.paid_amount
+        return pending_amount
+    # @property
+    # def Collected_amount()
 
 class Floor(models.Model):
     floor_id = models.CharField(max_length=20, primary_key=True)
