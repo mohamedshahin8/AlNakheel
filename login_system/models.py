@@ -1,13 +1,25 @@
 from django.db import models
 from datetime import datetime, timedelta, time, date
 
-# Create your models here.
+#CREATE YOUR CHOICES
+SOURCE_CHOICES=(
+    ('Booking.com' , 'Booking.com'),
+)
+REASONS_CHOICES=(
+    ('Tourism' , 'Tourism'),
+)
+PAYMENT_CHOICES=(
+    ('Cash' , 'Cash'),
+    ('Visa' , 'Visa'),
+)
 
+# Create your models here.
 class Country(models.Model):
     name = models.CharField(max_length=40)
 
     def __str__(self):
         return self.name
+
 
 
 class City(models.Model):
@@ -16,6 +28,8 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 class Floor(models.Model):
     floor_id = models.AutoField(primary_key=True)
@@ -26,6 +40,7 @@ class Floor(models.Model):
         return f"{self.floor_name}"
 
 
+
 class Room(models.Model):
     room_id = models.AutoField(primary_key=True)
     room_name = models.CharField(max_length=20)
@@ -33,6 +48,8 @@ class Room(models.Model):
 
     def __str__(self):
         return f"{self.room_name}"
+
+
 
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
@@ -52,16 +69,9 @@ class Customer(models.Model):
         return f"{self.customer_id}"
 
 
-SOURCE_CHOICES=(
-    ('Booking.com' , 'Booking.com'),
-)
-REASONS_CHOICES=(
-    ('Tourism' , 'Tourism'),
-)
-PAYMENT_CHOICES=(
-    ('Cash' , 'Cash'),
-    ('Visa' , 'Visa'),
-)
+
+
+
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
     booking_source = models.CharField(max_length= 15,choices=SOURCE_CHOICES)
@@ -90,11 +100,13 @@ class Booking(models.Model):
     # def Collected_amount()
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length=40)
 
     def __str__(self):
         return self.name
+
 
 
 class Item(models.Model):
@@ -103,6 +115,8 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 class Expense(models.Model):
     """docstring for Expense."""

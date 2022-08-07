@@ -41,16 +41,23 @@ def logout_user(request):
     auth.logout(request)
     return redirect('home')
 
-#ALL CUSTOMERS VIEW
+
+
+#CUSTOMERS PAGE VIEW
 def customers(request):
     customers = Customer.objects.all()
     return render(request, 'all_customers.html', context={'customers': customers})
+
+
 
 #CUSTOMER DETAILS VIEW
 def customer_details(request, id):
     customers = Customer.objects.get(customer_id = id)
     return render(request, 'customer_details.html', context={'customers': customers})
 
+
+
+#NEW CUSTOMER VIEW
 def new_customer(request):
 	if request.method == "POST":
 		customer_form = CustomerForm(request.POST, request.FILES)
@@ -65,15 +72,21 @@ def new_customer(request):
 	customer_form = CustomerForm()
 	return render(request=request, template_name="new_customer.html", context={'customer_form':customer_form})
 
+
+#BOOKINGS PAGE VIEWS
 def bookings(request):
     return render(request, 'bookings.html')
 
+
+#DAILY BOOKINGS VIEW
 def all_booking(request):
     bookings = Booking.objects.filter(from_date__gte = date.today())
     # bookings = Booking.objects.filter(from_date__gte = date.today())
     updated_bookings = Booking.objects.filter(updated_at__gte = date.today())
     return render(request, 'all_bookings.html', context={'bookings': bookings , 'updated_bookings' : updated_bookings})
 
+
+#NEW BOKING VIEW
 def new_booking(request):
 	if request.method == "POST":
 		booking_form = BookingForm(request.POST, request.FILES)
@@ -88,6 +101,8 @@ def new_booking(request):
 	booking_form = BookingForm()
 	return render(request=request, template_name="new_booking.html", context={'booking_form':booking_form})
 
+
+#UPDATE BOOKING VIEW
 def update_booking(request, id):
     booking = Booking.objects.get(booking_id=id)
     if request.method == 'POST':
@@ -104,11 +119,13 @@ def update_booking(request, id):
 
 
 
+#EXPENSES PAGE VIEW
 def expenses(request):
     expenses = Expense.objects.all()
     return render(request, 'expenses.html', context={'expenses': expenses})
 
 
+#NEW EXPENSE VIEW
 def new_expense(request):
     expense_form = ExpenseForm()
     if request.method == 'POST':
@@ -120,21 +137,22 @@ def new_expense(request):
 
 
 
-
-# AJAX
+# AJAX LOAD CITIES
 def load_cities(request):
     country_id = request.GET.get('country_id')
     cities = City.objects.filter(country_id=country_id).all()
     return render(request, 'city_dropdown_list_options.html', {'cities': cities})
     # return JsonResponse(list(cities.values('id', 'name')), safe=False)
 
-# AJAX
+# AJAX LOAD ITEMS
 def load_items(request):
     category_id = request.GET.get('category_id')
     items = Item.objects.filter(category_id=category_id).all()
     return render(request, 'item_dropdown_list_options.html', {'items': items})
     # return JsonResponse(list(cities.values('id', 'name')), safe=False)
 
+
+#SEARCH CUSTOMERS VIEW
 def search_customers(request):
     if request.method == "POST":
         searched = request.POST['searched']
