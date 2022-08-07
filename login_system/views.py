@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from datetime import datetime, timedelta, time, date
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+
 
 
 
@@ -14,7 +17,7 @@ from datetime import datetime, timedelta, time, date
 def home(request):
     return render(request, 'home.html')
 
-
+#LOGIN VIEW
 def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -33,14 +36,20 @@ def login_user(request):
         return render(request, 'login.html')
 
 
-
+#LOGOUT VIEW
 def logout_user(request):
     auth.logout(request)
     return redirect('home')
 
+#ALL CUSTOMERS VIEW
 def customers(request):
     customers = Customer.objects.all()
     return render(request, 'all_customers.html', context={'customers': customers})
+
+#CUSTOMER DETAILS VIEW
+def customer_details(request, id):
+    customers = Customer.objects.get(customer_id = id)
+    return render(request, 'customer_details.html', context={'customers': customers})
 
 def new_customer(request):
 	if request.method == "POST":
@@ -101,15 +110,35 @@ def expenses(request):
 
 
 def new_expense(request):
-	if request.method == "POST":
-		expense_form = ExpenseForm(request.POST, request.FILES)
-		if expense_form.is_valid():
-			expense_form.save()
-			messages.success(request, ('Expense was successfully added!'))
-		else:
-			messages.error(request, 'Error saving form')
+    expense_form = ExpenseForm()
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST)
+        if expense_form.is_valid():
+            expense_form.save()
+            return redirect('expense_add')
+    return render(request, 'new_expense.html', {'expense_form': expense_form})
 
 
-		return redirect("customers")
-	expense_form = ExpenseForm()
-	return render(request=request, template_name="new_expense.html", context={'expense_form':expense_form})
+
+
+# AJAX
+def load_cities(request):
+    country_id = request.GET.get('country_id')
+    cities = City.objects.filter(country_id=country_id).all()
+    return render(request, 'city_dropdown_list_options.html', {'cities': cities})
+    # return JsonResponse(list(cities.values('id', 'name')), safe=False)
+
+# AJAX
+def load_items(request):
+    category_id = request.GET.get('category_id')
+    items = Item.objects.filter(category_id=category_id).all()
+    return render(request, 'item_dropdown_list_options.html', {'items': items})
+    # return JsonResponse(list(cities.values('id', 'name')), safe=False)
+
+def search_customers(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        customer = Customer.objects.filter(full_name__contains= searched)
+        return render(request, 'search_customer.html', {'searched' : searched , 'customer' : customer})
+    else:
+        return render(request, 'search_customer.html')

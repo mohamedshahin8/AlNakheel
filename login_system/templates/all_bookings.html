@@ -16,13 +16,16 @@
                   <th>Booking Source | </th>
                   <th>Booking Reason | </th>
                   <th>Customer | </th>
-                  <th>Payment Type | </th>
+                  <th>Accompanied With | </th>
+                  <th>Total Guests | </th>
+                  <th>Room | </th>
+                  <!-- <th>Payment Type | </th> -->
                   <th>Start Date | </th>
                   <th>End Date | </th>
                   <th>Total Amount | </th>
-                  <th>Paid Amount | </th>
-                  <th>Pending Amount | </th>
-                  <th>Updated At | </th>
+                  <!-- <th>Paid Amount | </th> -->
+                  <!-- <th>Pending Amount | </th> -->
+                  <!-- <th>Updated At | </th> -->
               </tr>
                 {% for b in bookings %}
               <tr>
@@ -30,13 +33,16 @@
                   <td>{{b.booking_source}} </td>
                   <td>{{b.booking_reason}} </td>
                   <td>{{b.customer}} </td>
-                  <td>{{b.payment_type}} </td>
+                  <td>{{b.accompanied_with}} </td>
+                  <td>{{b.total_guests}} </td>
+                  <td>{{b.room}} </td>
+                  <!-- <td>{{b.payment_type}} </td> -->
                   <td>{{b.from_date}} </td>
                   <td>{{b.to_date}} </td>
                   <td>{{b.total_amount}} </td>
-                  <td>{{b.paid_amount}} </td>
-                  <td>{{b.Pending_amount}} </td>
-                  <td>{{b.updated_at}} </td>
+                  <!-- <td>{{b.paid_amount}} </td> -->
+                  <!-- <td>{{b.Pending_amount}} </td> -->
+                  <!-- <td>{{b.updated_at}} </td> -->
               </tr>
 
               {% empty %}

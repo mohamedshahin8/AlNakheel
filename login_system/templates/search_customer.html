@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content%}
+    <body>
+
+
+
+        <div class="container">
+          <!--Django Model Form-->
+          <div class="row">
+            {% if searched %}
+              <h2>You Searched For {{ searched }}</h2>
+              <br/>
+              {% for c in customer %}
+              <tr>
+                <td><a href="{% url 'customer_details' c.customer_id %}">{{c.customer_id}}</a> </td>
+                  {{c.customer_id}}
+              </tr>
+                <!-- {{c.customer_id}}<br/> -->
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+    {% endblock content%}
