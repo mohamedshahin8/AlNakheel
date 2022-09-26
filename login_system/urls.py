@@ -19,6 +19,8 @@ urlpatterns = [
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'), # AJAX
     path('ajax/load-items/', views.load_items, name='ajax_load_items'), # AJAX
     path("customer/search", views.search_customers, name="search_customer"),
+    path("payments", views.payments, name="payments"),
+    path("payments/create", views.new_invoice, name="new_invoice"),
 
 
     path("", views.home, name="home")

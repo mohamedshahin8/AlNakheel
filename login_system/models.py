@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime, timedelta, time, date
+from django.db.models import Sum , Count
+from django.db.models import F
 
 #CREATE YOUR CHOICES
 SOURCE_CHOICES=(
@@ -9,8 +11,8 @@ REASONS_CHOICES=(
     ('Tourism' , 'Tourism'),
 )
 PAYMENT_CHOICES=(
-    ('Cash' , 'Cash'),
-    ('Visa' , 'Visa'),
+    ('US' , 'Cash'),
+    ('EGP' , 'egypt'),
 )
 
 # Create your models here.
@@ -129,3 +131,55 @@ class Expense(models.Model):
 
     def __str__(self):
         return f"{self.expense_id}"
+
+
+
+class PaymentLine(models.Model):
+    line_id = models.AutoField(primary_key=True)
+    booking_id = models.ForeignKey(Booking,on_delete = models.CASCADE)
+    booking_amount = models.IntegerField()
+    payment_type = models.CharField(max_length= 10 ,choices=PAYMENT_CHOICES)
+    rate = models.IntegerField()
+    amount = models.IntegerField()
+    total_amount = models.IntegerField()
+
+    @property
+    def booking_amount(self):
+        booking_amount = self.booking_id.total_amount
+
+        return booking_amount
+    @property
+    def total_amount(self):
+        total_amount = self.amount * self.rate
+        return total_amount
+
+
+    def __str__(self):
+        return f"{self.booking_id}"
+
+class Payment(models.Model):
+    payment_id = models.AutoField(primary_key=True)
+    booking_id = models.ForeignKey(PaymentLine,on_delete = models.CASCADE)
+    # line_id = models.ForeignKey(PaymentLine,on_delete = models.CASCADE)
+    paid_amount = models.IntegerField()
+    num_paid = models.IntegerField()
+    booking_amount = models.IntegerField()
+
+    @property
+    def paid_amount(self):
+        paid_amount = PaymentLine.objects.aggregate(total = Sum(F('amount') *
+                    F('rate')))
+        return  paid_amount['total']
+
+    @property
+    def num_paid(self):
+        num_paid = PaymentLine.objects.aggregate(Count('booking_id'))
+        return  num_paid['booking_id__count']
+
+    @property
+    def booking_amount(self):
+        booking_amount = self.booking_id.booking_amount
+        return  booking_amount
+
+    def __str__(self):
+        return  f"{self.payment_id}"

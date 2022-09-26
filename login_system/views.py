@@ -160,3 +160,24 @@ def search_customers(request):
         return render(request, 'search_customer.html', {'searched' : searched , 'customer' : customer})
     else:
         return render(request, 'search_customer.html')
+
+
+#EXPENSES PAGE VIEW
+def payments(request):
+    payments = Payment.objects.all()
+    return render(request, 'payments.html', context={'payments': payments})
+
+#NEW INVOICE VIEW
+def new_invoice(request):
+	if request.method == "POST":
+		invoice_form = InvoiceForm(request.POST, request.FILES)
+		if invoice_form.is_valid():
+			invoice_form.save()
+			messages.success(request, ('Your invoice was successfully added!'))
+		else:
+			messages.error(request, 'Error saving form')
+
+
+		return redirect("new_invoice")
+	invoice_form = InvoiceForm()
+	return render(request=request, template_name="new_invoice.html", context={'invoice_form':invoice_form})

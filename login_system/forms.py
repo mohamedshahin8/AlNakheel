@@ -6,6 +6,11 @@ class ExpenseForm(forms.ModelForm):
     model = Expense
     fields = '__all__'
 
+class InvoiceForm(forms.ModelForm):
+  class Meta:
+    model = Payment
+    fields = '__all__'
+
 class BookingForm(forms.ModelForm):
     disabled_fields = ['booking_source', 'booking_reason' ,'customer','accompanied_with' , 'total_guests' , 'room','total_amount']
     class Meta:
